@@ -1,0 +1,85 @@
+{
+  "name": "markdown-workspace",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A modern, feature-rich markdown editor and workspace for managing documentation and notes.",
+  "homepage": "https://github.com/yourusername/markdown-workspace",
+  "repository": {"type": "git", "url": "https://github.com/yourusername/markdown-workspace.git"},
+  "bugs": {"url": "https://github.com/yourusername/markdown-workspace/issues"},
+  "keywords": ["markdown", "editor", "workspace", "notes", "documentation", "electron", "react"],
+  "main": "dist-electron/main.js",
+  "author": {"name": "Markdown Workspace Contributors", "email": "ahmed.ayman@bosta.co"},
+  "scripts": {
+    "dev": "concurrently \"vite\" \"tsc -p tsconfig.electron.json -w\" \"wait-on http://localhost:5173 && electron .\"",
+    "start": "electron .",
+    "build:renderer": "vite build",
+    "build:electron": "tsc -p tsconfig.electron.json",
+    "build:icons": "node scripts/generate-icons.js",
+    "build": "npm run build:icons && npm run build:renderer && npm run build:electron",
+    "package": "electron-builder",
+    "package:mac": "npm run build && electron-builder --mac",
+    "package:win": "npm run build && electron-builder --win",
+    "package:linux": "npm run build && electron-builder --linux",
+    "package:all": "npm run build && electron-builder -wl",
+    "lint": "eslint . --ext .ts,.tsx,.js,.jsx"
+  },
+  "dependencies": {
+    "chokidar": "^3.5.3",
+    "classnames": "^2.3.2",
+    "electron-store": "^8.1.0",
+    "highlight.js": "^11.8.0",
+    "katex": "^0.16.8",
+    "mermaid": "^10.4.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rehype-katex": "^6.0.1",
+    "rehype-stringify": "^9.0.3",
+    "remark-gfm": "^3.0.1",
+    "remark-parse": "^10.0.2",
+    "remark-rehype": "^10.1.0",
+    "unified": "^11.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.4.2",
+    "@types/react": "^18.2.21",
+    "@types/react-dom": "^18.2.7",
+    "@vitejs/plugin-react": "^4.7.0",
+    "concurrently": "^8.2.0",
+    "electron": "^26.2.0",
+    "electron-builder": "^24.6.0",
+    "esbuild": "^0.19.4",
+    "typescript": "^5.2.2",
+    "vite": "^5.0.0",
+    "wait-on": "^7.0.2"
+  },
+  "build": {
+    "appId": "com.markdownworkspace.app",
+    "productName": "Markdown Workspace",
+    "directories": {"output": "dist", "buildResources": "assets"},
+    "icon": "assets/icon",
+    "files": ["dist/**", "dist-electron/**", "assets/**", "package.json"],
+    "extraMetadata": {"name": "markdown-workspace"},
+    "mac": {
+      "icon": "assets/icon.icns",
+      "target": ["dmg", "zip"],
+      "category": "public.app-category.productivity"
+    },
+    "win": {
+      "icon": "assets/icon.ico",
+      "target": [{"target": "nsis", "arch": ["x64", "ia32"]}, "portable", "zip"]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Markdown Workspace"
+    },
+    "linux": {
+      "icon": "assets/icons",
+      "target": ["AppImage"],
+      "category": "Office;WordProcessor;Productivity"
+    },
+    "appImage": {"artifactName": "${productName}-${version}.${ext}"}
+  }
+}

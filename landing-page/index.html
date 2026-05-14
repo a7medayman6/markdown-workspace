@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Markdown Workspace | Premium Markdown Editor</title>
+    <meta
+      name="description"
+      content="Markdown Workspace is a premium offline-first markdown knowledge workspace and editor for developers, writers, researchers, and technical teams."
+    />
+    <meta name="theme-color" content="#090908" />
+    <meta property="og:title" content="Markdown Workspace" />
+    <meta
+      property="og:description"
+      content="Write. Organize. Export. Beautifully. A premium markdown workspace for focused technical work."
+    />
+    <meta property="og:type" content="website" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="cursor-dot" aria-hidden="true"></div>
+    <div class="cursor-ring" aria-hidden="true"></div>
+    <div class="noise" aria-hidden="true"></div>
+    <div class="ambient ambient-one" aria-hidden="true"></div>
+    <div class="ambient ambient-two" aria-hidden="true"></div>
+
+    <header class="site-header" aria-label="Primary navigation">
+      <a class="brand" href="#top" aria-label="Markdown Workspace home">
+        <span class="brand-mark">M</span>
+        <span>Markdown Workspace</span>
+      </a>
+      <nav class="desktop-nav" aria-label="Main navigation">
+        <a href="#features">Features</a>
+        <a href="#editor">Editor</a>
+        <a href="#themes">Themes</a>
+        <a href="#pricing">Pricing</a>
+      </nav>
+      <a class="header-action" href="#download">Download</a>
+    </header>
+
+    <nav class="dock-nav" aria-label="Floating page navigation">
+      <a href="#top" aria-label="Hero"><span></span></a>
+      <a href="#features" aria-label="Features"><span></span></a>
+      <a href="#editor" aria-label="Editor preview"><span></span></a>
+      <a href="#themes" aria-label="Themes"><span></span></a>
+      <a href="#pricing" aria-label="Pricing"><span></span></a>
+    </nav>
+
+    <main id="top">
+      <section class="hero section-shell">
+        <div class="hero-grid">
+          <div class="hero-copy reveal">
+            <p class="eyebrow"><span></span> Offline-first desktop workspace</p>
+            <h1>Your markdown workspace. Reimagined.</h1>
+            <p class="hero-subtitle">
+              Write, organize, preview, diagram, and export technical knowledge
+              in a focused desktop environment built for people who live in
+              plain text.
+            </p>
+            <div class="hero-actions">
+              <a class="button button-primary magnetic" href="#download">
+                <span class="button-icon">↓</span>
+                Download App
+              </a>
+              <a class="button button-secondary magnetic" href="#github">
+                <span class="button-icon">⌘</span>
+                View on GitHub
+              </a>
+            </div>
+            <div class="hero-proof" aria-label="Product highlights">
+              <span>Local files</span>
+              <span>Fast preview</span>
+              <span>PDF export</span>
+            </div>
+          </div>
+
+          <div class="hero-stage reveal" data-parallax="0.09">
+            <div class="floating-chip chip-one">⌘K Command palette</div>
+            <div class="floating-chip chip-two">Mermaid rendered</div>
+            <div class="floating-chip chip-three">PDF ready</div>
+            <div class="app-window hero-window">
+              <div class="window-bar">
+                <div class="traffic">
+                  <i></i><i></i><i></i>
+                </div>
+                <div class="window-title">research/architecture.md</div>
+                <div class="window-pill">Live Preview</div>
+              </div>
+              <div class="workspace-ui">
+                <aside class="mock-sidebar">
+                  <div class="sidebar-title">Workspace</div>
+                  <div class="tree-row active">Product Strategy</div>
+                  <div class="tree-row">Architecture</div>
+                  <div class="tree-row">API Notes</div>
+                  <div class="tree-row">Research</div>
+                  <div class="tree-row muted">Exports</div>
+                </aside>
+                <section class="mock-editor">
+                  <div class="tab-strip">
+                    <span class="tab active">overview.md</span>
+                    <span class="tab">diagrams.md</span>
+                    <span class="tab">release.md</span>
+                  </div>
+                  <div class="editor-preview-grid">
+                    <pre class="code-pane"><code># Workspace OS
+
+Design documents stay
+close to the codebase.
+
+- [[Architecture]]
+- [[Research notes]]
+- Export polished PDFs</code></pre>
+                    <div class="render-pane">
+                      <h3>Workspace OS</h3>
+                      <p>Design documents stay close to the codebase.</p>
+                      <ul>
+                        <li>Architecture</li>
+                        <li>Research notes</li>
+                        <li>Export polished PDFs</li>
+                      </ul>
+                      <div class="diagram">
+                        <span>Draft</span><b></b><span>Review</span><b></b><span>Ship</span>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="logos section-shell reveal" aria-label="Trusted by">
+        <p>Built for focused teams, solo makers, and long-form technical work</p>
+        <div class="logo-row">
+          <span>Northstar Labs</span>
+          <span>Signal Forge</span>
+          <span>Papertrail</span>
+          <span>Orbit Systems</span>
+          <span>Atlas Research</span>
+        </div>
+      </section>
+
+      <section id="features" class="section-shell section">
+        <div class="section-heading reveal">
+          <p class="eyebrow"><span></span> Feature showcase</p>
+          <h2>A desktop workspace that respects your files.</h2>
+          <p>
+            Markdown Workspace brings editing, previewing, navigation, diagrams,
+            and exports into one quiet, high-performance surface.
+          </p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card large reveal">
+            <div class="feature-icon">▦</div>
+            <h3>Folder-based workspace</h3>
+            <p>Open any local folder and keep notes, docs, and research in the structure you already use.</p>
+            <div class="mini-file-system">
+              <span class="folder">docs</span>
+              <span class="file active">index.md</span>
+              <span class="file">api/reference.md</span>
+              <span class="file">research/sources.md</span>
+            </div>
+          </article>
+          <article class="feature-card reveal">
+            <div class="feature-icon">◫</div>
+            <h3>Live markdown preview</h3>
+            <p>Readable rendering updates as you write, including tables, task lists, code, math, and links.</p>
+          </article>
+          <article class="feature-card reveal">
+            <div class="feature-icon">◧</div>
+            <h3>Multi-tab editing</h3>
+            <p>Keep specs, notes, and drafts open together with a fast tab workflow.</p>
+          </article>
+          <article class="feature-card reveal">
+            <div class="feature-icon">⇩</div>
+            <h3>PDF exporting</h3>
+            <p>Create beautiful print-ready documents from markdown without leaving your workspace.</p>
+          </article>
+          <article class="feature-card reveal">
+            <div class="feature-icon">◇</div>
+            <h3>Mermaid diagrams</h3>
+            <p>Document flows, systems, and decisions with diagrams that render directly beside your text.</p>
+          </article>
+          <article class="feature-card reveal">
+            <div class="feature-icon">◐</div>
+            <h3>Dark and light themes</h3>
+            <p>Switch between calm graphite and crisp paper modes for different working rhythms.</p>
+          </article>
+          <article class="feature-card reveal">
+            <div class="feature-icon">◎</div>
+            <h3>Offline-first desktop</h3>
+            <p>No cloud dependency, no lock-in, no waiting for network requests before your ideas can move.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="editor" class="section-shell section editor-section">
+        <div class="section-heading reveal">
+          <p class="eyebrow"><span></span> Interactive editor preview</p>
+          <h2>Write on the left. See the finished document on the right.</h2>
+        </div>
+        <div class="interactive-editor reveal">
+          <div class="editor-toolbar">
+            <div class="toolbar-group">
+              <button data-doc="brief" class="active">Brief</button>
+              <button data-doc="diagram">Diagram</button>
+              <button data-doc="export">Export</button>
+            </div>
+            <span class="status-dot"></span>
+            <span>Local render ready</span>
+          </div>
+          <div class="split-demo">
+            <pre class="typing-source"><code id="typing-code"></code></pre>
+            <article class="rendered-document" id="rendered-document" aria-live="polite"></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-shell section productivity">
+        <div class="section-heading reveal">
+          <p class="eyebrow"><span></span> Productivity system</p>
+          <h2>Everything is reachable without breaking flow.</h2>
+        </div>
+        <div class="productivity-grid">
+          <article class="motion-card reveal">
+            <span class="keycap">⌘K</span>
+            <h3>Command palette</h3>
+            <p>Jump between files, toggle views, and trigger exports from one fast launcher.</p>
+          </article>
+          <article class="motion-card reveal">
+            <span class="keycap">⌘P</span>
+            <h3>Fast navigation</h3>
+            <p>Search across your workspace and open notes with keyboard-first speed.</p>
+          </article>
+          <article class="motion-card reveal">
+            <span class="keycap">⌘.</span>
+            <h3>Focus mode</h3>
+            <p>Hide surrounding UI and keep the editor centered when the draft needs quiet.</p>
+          </article>
+          <article class="motion-card reveal">
+            <span class="keycap">⌘⇧F</span>
+            <h3>Workspace organization</h3>
+            <p>Work from real folders, not opaque databases, while preserving your system of thought.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="themes" class="section-shell section themes-section">
+        <div class="section-heading reveal">
+          <p class="eyebrow"><span></span> Themes</p>
+          <h2>Graphite at midnight. Paper when you need daylight.</h2>
+        </div>
+        <div class="theme-showcase reveal" id="theme-showcase">
+          <div class="theme-controls" role="group" aria-label="Theme preview">
+            <button class="active" data-theme="dark">Dark</button>
+            <button data-theme="light">Light</button>
+          </div>
+          <div class="theme-window">
+            <div class="theme-copy">
+              <p>Typography sample</p>
+              <h3>Readable prose, crisp code, and enough contrast for long sessions.</h3>
+              <div class="theme-lines"><span></span><span></span><span></span></div>
+            </div>
+            <pre><code>function publish(note) {
+  return exportPDF(note, {
+    theme: "workspace",
+    diagrams: true
+  })
+}</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-shell section export-section">
+        <div class="export-grid">
+          <div class="section-heading reveal">
+            <p class="eyebrow"><span></span> Export</p>
+            <h2>Turn plain text into polished deliverables.</h2>
+            <p>
+              Generate clean PDFs for design docs, research summaries, meeting
+              notes, course work, and technical documentation.
+            </p>
+          </div>
+          <div class="pdf-stack reveal" aria-label="PDF document preview">
+            <div class="pdf-page page-back"></div>
+            <div class="pdf-page page-front">
+              <span class="doc-kicker">Architecture Review</span>
+              <h3>Markdown Workspace</h3>
+              <p>System notes, diagrams, decisions, and next steps rendered for review.</p>
+              <div class="pdf-rule"></div>
+              <div class="pdf-table"><span></span><span></span><span></span><span></span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="stats section-shell reveal" aria-label="Product statistics">
+        <div class="stat"><strong data-count="10000">0</strong><span>markdown files written</span></div>
+        <div class="stat"><strong data-text="Fast">Fast</strong><span>local rendering</span></div>
+        <div class="stat"><strong data-text="Offline">Offline</strong><span>first by design</span></div>
+        <div class="stat"><strong data-text="Zero">Zero</strong><span>cloud dependency</span></div>
+      </section>
+
+      <section class="section-shell section testimonials">
+        <div class="section-heading reveal">
+          <p class="eyebrow"><span></span> Loved by people who write for a living</p>
+          <h2>The workspace disappears. The work stays sharp.</h2>
+        </div>
+        <div class="testimonial-grid">
+          <article class="testimonial reveal">
+            <div class="avatar">AK</div>
+            <p>"It feels like a command center for technical writing. Fast, local, and calm."</p>
+            <strong>Amira Khan</strong><span>Senior Developer</span>
+          </article>
+          <article class="testimonial reveal">
+            <div class="avatar">MC</div>
+            <p>"The split preview and PDF export replaced three tools in my documentation flow."</p>
+            <strong>Mateo Cruz</strong><span>Technical Writer</span>
+          </article>
+          <article class="testimonial reveal">
+            <div class="avatar">JL</div>
+            <p>"My research notes finally feel organized without being trapped in another cloud app."</p>
+            <strong>June Lee</strong><span>Graduate Researcher</span>
+          </article>
+          <article class="testimonial reveal">
+            <div class="avatar">SN</div>
+            <p>"I use it for lectures, code notes, diagrams, and exports. It is ridiculously focused."</p>
+            <strong>Samir Nassar</strong><span>Computer Science Student</span>
+          </article>
+        </div>
+      </section>
+
+      <section id="pricing" class="section-shell section pricing">
+        <div class="section-heading reveal">
+          <p class="eyebrow"><span></span> Pricing</p>
+          <h2>Start free. Upgrade when your workspace grows.</h2>
+        </div>
+        <div class="pricing-grid">
+          <article class="price-card reveal">
+            <h3>Free</h3>
+            <p class="price">$0</p>
+            <span>For personal notes and drafts.</span>
+            <ul>
+              <li>Folder workspace</li>
+              <li>Live preview</li>
+              <li>Dark and light themes</li>
+            </ul>
+            <a class="button button-secondary" href="#download">Download</a>
+          </article>
+          <article class="price-card featured unavailable reveal" aria-label="Pro plan coming soon">
+            <div class="popular">Coming soon</div>
+            <h3>Pro</h3>
+            <p class="price">$8<span>/mo</span></p>
+            <span>For serious markdown workflows.</span>
+            <ul>
+              <li>PDF export presets</li>
+              <li>Mermaid and math rendering</li>
+              <li>Advanced command palette</li>
+            </ul>
+            <span class="button button-disabled" aria-disabled="true">Coming Soon</span>
+          </article>
+          <article class="price-card unavailable reveal" aria-label="Team plan coming soon">
+            <div class="popular muted-badge">Coming soon</div>
+            <h3>Team</h3>
+            <p class="price">$18<span>/seat</span></p>
+            <span>For technical teams and docs groups.</span>
+            <ul>
+              <li>Shared style presets</li>
+              <li>Workspace templates</li>
+              <li>Priority support</li>
+            </ul>
+            <span class="button button-disabled" aria-disabled="true">Coming Soon</span>
+          </article>
+        </div>
+      </section>
+
+      <section id="download" class="final-cta section-shell reveal">
+        <div class="cta-inner">
+          <p class="eyebrow"><span></span> Available for Windows, macOS, Linux</p>
+          <h2>Bring your markdown home.</h2>
+          <p>Download a faster, calmer, more crafted workspace for your local knowledge base.</p>
+          <div class="hero-actions">
+            <a class="button button-primary magnetic" href="#">Download App</a>
+            <a id="github" class="button button-secondary magnetic" href="#">View on GitHub</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="brand">
+        <span class="brand-mark">M</span>
+        <span>Markdown Workspace</span>
+      </div>
+      <nav aria-label="Footer navigation">
+        <a href="#features">Features</a>
+        <a href="#editor">Documentation</a>
+        <a href="#download">Changelog</a>
+        <a href="#github">GitHub</a>
+        <a href="#">Socials</a>
+      </nav>
+      <p>© 2026 Markdown Workspace. Crafted for focused writing.</p>
+    </footer>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
