@@ -1,0 +1,169 @@
+name: Release packaged app
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      tag: ${{ steps.version.outputs.tag }}
+      exists: ${{ steps.tag.outputs.exists }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Read package version
+        id: version
+        shell: bash
+        run: |
+          VERSION="$(node -p "require('./package.json').version")"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "tag=v$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Check if release tag already exists
+        id: tag
+        shell: bash
+        run: |
+          if git rev-parse "${{ steps.version.outputs.tag }}" >/dev/null 2>&1; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+            echo "Release tag ${{ steps.version.outputs.tag }} already exists. Skipping packaging."
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  build-linux:
+    needs: prepare
+    if: needs.prepare.outputs.exists == 'false'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Package Linux app
+        run: npm run package:linux
+
+      - name: Upload Linux artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-app
+          path: |
+            dist/*.AppImage
+          if-no-files-found: error
+
+  build-windows:
+    needs: prepare
+    if: needs.prepare.outputs.exists == 'false'
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Package Windows app
+        run: npm run package:win
+
+      - name: Upload Windows artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-app
+          path: |
+            dist/*.exe
+            dist/*.zip
+          if-no-files-found: error
+
+  build-macos:
+    needs: prepare
+    if: needs.prepare.outputs.exists == 'false'
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Package macOS app
+        run: npm run package:mac
+
+      - name: Upload macOS artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: macos-app
+          path: |
+            dist/*.dmg
+            dist/*.zip
+          if-no-files-found: error
+
+  publish:
+    needs:
+      - prepare
+      - build-linux
+      - build-windows
+      - build-macos
+    if: needs.prepare.outputs.exists == 'false'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Download packaged apps
+        uses: actions/download-artifact@v4
+        with:
+          path: release-assets
+          merge-multiple: true
+
+      - name: Create and push version tag
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag "${{ needs.prepare.outputs.tag }}" "$GITHUB_SHA"
+          git push origin "${{ needs.prepare.outputs.tag }}"
+
+      - name: Publish GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          gh release create "${{ needs.prepare.outputs.tag }}" release-assets/* \
+            --title "Markdown Workspace ${{ needs.prepare.outputs.version }}" \
+            --notes "Automated release for Markdown Workspace ${{ needs.prepare.outputs.version }}."
