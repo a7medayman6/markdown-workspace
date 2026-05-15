@@ -1,6 +1,14 @@
-# Markdown Workspace
+# [Markdown Workspace](https://a7medayman6.github.io/markdown-workspace/)
 
 A modern, feature-rich desktop markdown editor & workspace built with **Electron**, **React**, **Vite**, and **TypeScript**. Perfect for managing markdown documentation, notes, and technical writing.
+
+## Download
+
+Download the latest packaged app from the GitHub Releases page:
+
+**[Download Markdown Workspace](https://github.com/a7medayman6/markdown-workspace/releases)**
+
+The current release workflow publishes the Linux AppImage. Windows and macOS builds can still be packaged locally from the project scripts.
 
 ## Features
 
