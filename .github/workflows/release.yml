@@ -106,7 +106,6 @@ jobs:
       - build-linux
       - build-windows
     if: |
-      always() &&
       needs.prepare.result == 'success' &&
       needs.prepare.outputs.exists == 'false' &&
       (needs.build-linux.result == 'success' || needs.build-windows.result == 'success')
