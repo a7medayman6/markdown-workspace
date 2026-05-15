@@ -81,7 +81,7 @@ export default function Preview({ filePath }: Props) {
         if (res && !res.canceled) alert('Exported to ' + res.filePath)
       } catch (err) {
         console.error('Export failed', err)
-        alert('Export failed. See console.')
+        alert('Export failed. Try again.')
       }
     }
     window.addEventListener('export:pdf', onExport as EventListener)
