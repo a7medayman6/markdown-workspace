@@ -57,10 +57,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       - name: Package Linux app
         run: npm run package:linux
@@ -73,40 +72,38 @@ jobs:
             dist/*.AppImage
           if-no-files-found: error
 
-  build-windows:
-    needs: prepare
-    if: needs.prepare.outputs.exists == 'false'
-    runs-on: windows-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Package Windows app
-        run: npm run package:win
-
-      - name: Upload Windows artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: windows-app
-          path: |
-            dist/*.exe
-            dist/*.zip
-          if-no-files-found: error
+  # build-windows:
+  #   needs: prepare
+  #   if: needs.prepare.outputs.exists == 'false'
+  #   runs-on: windows-latest
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v4
+  #
+  #     - name: Setup Node
+  #       uses: actions/setup-node@v4
+  #       with:
+  #         node-version: 20
+  #
+  #     - name: Install dependencies
+  #       run: npm install
+  #
+  #     - name: Package Windows app
+  #       run: npm run package:win
+  #
+  #     - name: Upload Windows artifacts
+  #       uses: actions/upload-artifact@v4
+  #       with:
+  #         name: windows-app
+  #         path: |
+  #           dist/*.exe
+  #           dist/*.zip
+  #         if-no-files-found: error
 
   publish:
     needs:
       - prepare
       - build-linux
-      - build-windows
     if: needs.prepare.outputs.exists == 'false'
     runs-on: ubuntu-latest
     steps:
