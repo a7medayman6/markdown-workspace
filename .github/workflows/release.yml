@@ -47,7 +47,7 @@ jobs:
 
   build-linux:
     needs: prepare
-    if: needs.prepare.outputs.exists == 'false'
+    # if: needs.prepare.outputs.exists == 'false'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -74,7 +74,7 @@ jobs:
 
   build-windows:
     needs: prepare
-    if: needs.prepare.outputs.exists == 'false'
+    # if: needs.prepare.outputs.exists == 'false'
     runs-on: windows-latest
     steps:
       - name: Checkout
@@ -105,9 +105,10 @@ jobs:
       - prepare
       - build-linux
       - build-windows
+      # needs.prepare.outputs.exists == 'false' &&
     if: |
+      always() &&
       needs.prepare.result == 'success' &&
-      needs.prepare.outputs.exists == 'false' &&
       (needs.build-linux.result == 'success' || needs.build-windows.result == 'success')
     runs-on: ubuntu-latest
     steps:
