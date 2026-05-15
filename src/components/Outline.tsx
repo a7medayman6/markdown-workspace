@@ -19,12 +19,14 @@ export default function Outline({ filePath }: { filePath: string | null }) {
   if (!filePath || outline.length === 0) return null
 
   function scrollToHeading(slug: string) {
-    // The preview content is a scrollable div — find the heading by its id inside it
-    const container = document.querySelector('.preview-content')
-    const target = container?.querySelector<HTMLElement>(`#${CSS.escape(slug)}`)
-    if (!container || !target) return
-    const offset = target.offsetTop - 24
-    container.scrollTo({ top: offset, behavior: 'smooth' })
+    const preview = document.querySelector<HTMLElement>('.preview')
+    const target = preview?.querySelector<HTMLElement>(`#${CSS.escape(slug)}`)
+    if (!preview || !target) return
+
+    preview.scrollTo({
+      top: Math.max(target.offsetTop - 24, 0),
+      behavior: 'smooth'
+    })
   }
 
   return (
@@ -37,6 +39,7 @@ export default function Outline({ filePath }: { filePath: string | null }) {
             className={`outline-item outline-h${h.depth}`}
             style={{ paddingLeft: 12 + (h.depth - 1) * 14 }}
             onClick={() => scrollToHeading(h.slug)}
+            title={h.text}
           >
             {h.text}
           </button>

@@ -606,13 +606,18 @@ pre.collapsed { display: none !important; }
   padding: 2px 8px 8px;
   display: flex;
   flex-direction: column;
-  gap: 1px;
+  gap: 2px;
+  min-height: 0;
 }
 
 .outline-item {
-  display: block;
+  display: flex;
+  align-items: center;
   width: 100%;
-  padding: 4px 8px;
+  min-height: 26px;
+  padding-top: 5px;
+  padding-right: 8px;
+  padding-bottom: 5px;
   border-radius: var(--radius-sm);
   background: none;
   border: none;
@@ -620,10 +625,11 @@ pre.collapsed { display: none !important; }
   text-decoration: none;
   color: var(--text-secondary);
   font-size: 13px;
-  line-height: 1.4;
+  line-height: 1.25;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  flex-shrink: 0;
   transition: background 0.1s, color 0.1s;
   cursor: pointer;
 }
