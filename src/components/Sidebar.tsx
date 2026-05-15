@@ -6,6 +6,7 @@ type Props = {
   files: string[]
   onOpenFolder: () => void
   onOpenFile: (path: string) => void
+  onCollapse?: () => void
   activeFile?: string | null
 }
 
@@ -100,7 +101,7 @@ function TreeItem({
   )
 }
 
-export default function Sidebar({ workspace, files, onOpenFolder, onOpenFile, activeFile }: Props) {
+export default function Sidebar({ workspace, files, onOpenFolder, onOpenFile, onCollapse, activeFile }: Props) {
   const tree = workspace ? buildTree(files, workspace) : []
 
   return (
@@ -113,7 +114,14 @@ export default function Sidebar({ workspace, files, onOpenFolder, onOpenFile, ac
             <span>Files</span>
           </div>
         </div>
-        <button onClick={onOpenFolder}>Open Folder</button>
+        <div className="sidebar-header-actions">
+          <button onClick={onOpenFolder}>Open Folder</button>
+          {onCollapse && (
+            <button className="icon-button" onClick={onCollapse} title="Collapse workspace explorer" aria-label="Collapse workspace explorer">
+              ◀
+            </button>
+          )}
+        </div>
       </div>
 
       <div className="file-tree">

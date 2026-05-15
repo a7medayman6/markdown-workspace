@@ -14,6 +14,8 @@ export default function App() {
   const [tabs, setTabs] = useState<string[]>([])
   const [paletteOpen, setPaletteOpen] = useState(false)
   const [hidePreview, setHidePreview] = useState(false)
+  const [hideSidebar, setHideSidebar] = useState(false)
+  const [hideOutline, setHideOutline] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
   const [editorWidth, setEditorWidth] = useState(50)
 
@@ -77,13 +79,25 @@ export default function App() {
 
   return (
     <div className="app-root">
-      <Sidebar
-        workspace={workspace}
-        files={files}
-        onOpenFolder={openFolder}
-        onOpenFile={(f) => { setActive(f); setTabs((t) => t.includes(f) ? t : [...t, f]) }}
-        activeFile={active}
-      />
+      {!hideSidebar ? (
+        <Sidebar
+          workspace={workspace}
+          files={files}
+          onOpenFolder={openFolder}
+          onOpenFile={(f) => { setActive(f); setTabs((t) => t.includes(f) ? t : [...t, f]) }}
+          onCollapse={() => setHideSidebar(true)}
+          activeFile={active}
+        />
+      ) : (
+        <button
+          className="workspace-restore"
+          onClick={() => setHideSidebar(false)}
+          title="Show workspace explorer"
+          aria-label="Show workspace explorer"
+        >
+          ▶
+        </button>
+      )}
       <div className="editor-area">
         <Tabs
           tabs={tabs}
@@ -106,8 +120,27 @@ export default function App() {
                   <div className="split-handle-bar" />
                 </div>
                 <div className="split-pane" style={{ flex: 1, minWidth: 0 }}>
+                  <div className="pane-toolbar">
+                    <span>Preview</span>
+                    <div className="pane-toolbar-actions">
+                      <button
+                        onClick={() => setHideOutline((s) => !s)}
+                        title={hideOutline ? 'Show outline' : 'Hide outline'}
+                        aria-label={hideOutline ? 'Show outline' : 'Hide outline'}
+                      >
+                        {hideOutline ? 'Show Outline' : 'Hide Outline'}
+                      </button>
+                      <button
+                        onClick={() => setHidePreview(true)}
+                        title="Collapse preview"
+                        aria-label="Collapse preview"
+                      >
+                        Hide Preview
+                      </button>
+                    </div>
+                  </div>
                   <Preview filePath={active} />
-                  <Outline filePath={active} />
+                  {!hideOutline && <Outline filePath={active} />}
                 </div>
               </>
             )}
@@ -117,7 +150,7 @@ export default function App() {
                 onClick={() => setHidePreview((s) => !s)}
                 title={hidePreview ? 'Show preview' : 'Hide preview'}
               >
-                {hidePreview ? '◀' : '▶'}
+                {hidePreview ? 'Show Preview' : 'Hide Preview'}
               </button>
             </div>
           </div>
