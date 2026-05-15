@@ -9,7 +9,9 @@ type Props = { filePath: string }
 
 export default function Preview({ filePath }: Props) {
   const [html, setHtml] = useState<string>('')
+  const previewRef = useRef<HTMLDivElement | null>(null)
   const containerRef = useRef<HTMLDivElement | null>(null)
+  const syncingFromEditor = useRef(false)
 
   const doRender = useCallback(async (markdown: string, cancelled?: { value: boolean }) => {
     const out = await renderMarkdownToHtml(markdown)
@@ -90,16 +92,36 @@ export default function Preview({ filePath }: Props) {
   useEffect(() => {
     const onEditorScroll = (ev: any) => {
       const ratio = ev.detail?.ratio
-      if (!containerRef.current || typeof ratio !== 'number') return
-      const el = containerRef.current
-      el.scrollTop = ratio * (el.scrollHeight - el.clientHeight)
+      const el = previewRef.current
+      if (!el || typeof ratio !== 'number') return
+
+      syncingFromEditor.current = true
+      el.scrollTop = ratio * (el.scrollHeight - el.clientHeight || 1)
+      window.setTimeout(() => {
+        syncingFromEditor.current = false
+      }, 80)
     }
     window.addEventListener('editor:scroll', onEditorScroll as EventListener)
     return () => window.removeEventListener('editor:scroll', onEditorScroll as EventListener)
   }, [])
 
+  // scroll sync: send preview scroll ratio to editor
+  useEffect(() => {
+    const el = previewRef.current
+    if (!el) return
+
+    const onScroll = () => {
+      if (syncingFromEditor.current) return
+      const ratio = el.scrollTop / (el.scrollHeight - el.clientHeight || 1)
+      window.dispatchEvent(new CustomEvent('preview:scroll', { detail: { ratio } }))
+    }
+
+    el.addEventListener('scroll', onScroll)
+    return () => el.removeEventListener('scroll', onScroll)
+  }, [])
+
   return (
-    <div className="preview pane">
+    <div ref={previewRef} className="preview pane">
       <div ref={containerRef} className="preview-content" dangerouslySetInnerHTML={{ __html: html }} />
     </div>
   )

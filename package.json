@@ -8,7 +8,7 @@
   "bugs": {"url": "https://github.com/yourusername/markdown-workspace/issues"},
   "keywords": ["markdown", "editor", "workspace", "notes", "documentation", "electron", "react"],
   "main": "dist-electron/main.js",
-  "author": {"name": "Markdown Workspace Contributors", "email": "ahmed.ayman@bosta.co"},
+  "author": {"name": "Markdown Workspace Contributors", "email": "a.ayman@gmail.com"},
   "scripts": {
     "dev": "concurrently \"vite\" \"tsc -p tsconfig.electron.json -w\" \"wait-on http://localhost:5173 && electron .\"",
     "start": "electron .",

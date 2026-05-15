@@ -7,6 +7,7 @@ export default function Editor({ filePath, onOpenInTab }: Props) {
   const [dirty, setDirty] = useState(false)
   const [zen, setZen] = useState(false)
   const textareaRef = useRef<HTMLTextAreaElement | null>(null)
+  const syncingFromPreview = useRef(false)
 
   useEffect(() => {
     let mounted = true
@@ -62,12 +63,31 @@ export default function Editor({ filePath, onOpenInTab }: Props) {
     const el = textareaRef.current
     if (!el) return
     const onScroll = () => {
+      if (syncingFromPreview.current) return
       const ratio = el.scrollTop / (el.scrollHeight - el.clientHeight || 1)
       window.dispatchEvent(new CustomEvent('editor:scroll', { detail: { ratio } }))
     }
     el.addEventListener('scroll', onScroll)
     return () => el.removeEventListener('scroll', onScroll)
-  }, [textareaRef.current])
+  }, [])
+
+  // scroll sync: receive scroll ratio from preview
+  useEffect(() => {
+    const onPreviewScroll = (ev: any) => {
+      const ratio = ev.detail?.ratio
+      const el = textareaRef.current
+      if (!el || typeof ratio !== 'number') return
+
+      syncingFromPreview.current = true
+      el.scrollTop = ratio * (el.scrollHeight - el.clientHeight || 1)
+      window.setTimeout(() => {
+        syncingFromPreview.current = false
+      }, 80)
+    }
+
+    window.addEventListener('preview:scroll', onPreviewScroll as EventListener)
+    return () => window.removeEventListener('preview:scroll', onPreviewScroll as EventListener)
+  }, [])
 
   const words = content.trim().length ? content.trim().split(/\s+/).length : 0
   const minutes = Math.max(1, Math.round(words / 200))
